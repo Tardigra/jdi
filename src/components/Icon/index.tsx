@@ -1,12 +1,12 @@
 import React from 'react'
-import path, {IconType} from '../assets/icons'
+import path, {IconType} from '../../assets/icons'
+import './styles.css'
 
 const defaultStyles = {display: 'inline-block', verticalAlign: 'middle'}
 
-const Icon: React.FC<IconProps> = ({
+const Index: React.FC<IconProps> = ({
   icon,
   size = 16,
-  color = '#000000',
   viewBox = '0 0 24 24',
   style = {},
   className = '',
@@ -16,14 +16,14 @@ const Icon: React.FC<IconProps> = ({
   return (
     <svg
       className={className}
-      style={styles}
       viewBox={viewBox}
+      style={styles}
       width={`${size}px`}
       height={`${size}px`}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
-      <path fill={color} d={path[icon]} />
+      <path d={path[icon]} />
     </svg>
   )
 }
@@ -37,4 +37,4 @@ interface IconProps {
   viewBox?: string
 }
 
-export default Icon
+export default Index
