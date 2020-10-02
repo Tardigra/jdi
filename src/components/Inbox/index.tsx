@@ -1,16 +1,35 @@
 import React from 'react'
 import Icon from '../Icon'
 import Button from '../Button'
+import {InboxItem, saveInboxItem} from '../../services/api'
 
-const AddThing: React.FC<{}> = () => {
+const AddInboxItem: React.FC<{}> = () => {
   const [showAddInput, setAddInput] = React.useState(false)
+  const [itemValue, setItemValue] = React.useState('')
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setItemValue(e.target.value)
+  }
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const newThing: InboxItem = {
+      description: itemValue,
+    }
+    await saveInboxItem(newThing)
+    setItemValue('')
+  }
 
   if (showAddInput) {
     return (
-      <form>
+      <form onSubmit={handleSubmit}>
         <Button type="button" aria-label="close input" />
-        <label htmlFor="add-thing">Add Thing</label>
-        <input type="text" id="add-thing" />
+        <label htmlFor="thing">Thing</label>
+        <input
+          type="text"
+          id="thing"
+          onChange={handleOnChange}
+          value={itemValue}
+        />
         <Button type="submit" aria-label="submit" />
       </form>
     )
@@ -18,7 +37,7 @@ const AddThing: React.FC<{}> = () => {
 
   return (
     <Button
-      aria-label="add"
+      aria-label="add-item"
       onClick={(event) => {
         event.preventDefault()
         setAddInput(true)
@@ -32,7 +51,7 @@ const AddThing: React.FC<{}> = () => {
 const Inbox: React.FC = () => {
   return (
     <>
-      <AddThing />
+      <AddInboxItem />
       <Button>Inbox</Button>
       <Button>Process</Button>
     </>
